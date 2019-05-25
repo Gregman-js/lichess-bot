@@ -185,7 +185,7 @@ class Chess:
             self.started_black = False
 
     def wait_for_move(self):
-        print(self.started_black)
+        if self.params['debug']: print("Play as Black: "+str(self.started_black))
         while True:
             if not self.params['mode']:
                 try:
