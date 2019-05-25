@@ -104,13 +104,13 @@ class Chess:
             self.expir_fast = False
         elif wait_for_move:
             if timing > 40 and timing < 60:
-                time.sleep(randint(1, 2)/2)
-            elif timing <= 40 and timing > 30:
                 time.sleep(randint(0, 1)/2)
-            elif timing >= 60:
+            # elif timing <= 40 and timing > 30:
+            #     time.sleep(randint(0, 1)/2)
+            elif timing >= 100:
                 time.sleep(3+randint(2, 8))
-            elif timing > 15 and self.params['mode']:
-                time.sleep(0.2)
+            elif timing >= 60 and timing < 100:
+                time.sleep(2+randint(1, 4))
 
     def get_moves(self):
         last_moves = self.driver.find_elements_by_class_name("last-move")
