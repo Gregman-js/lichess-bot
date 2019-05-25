@@ -73,9 +73,9 @@ class Runway:
         
     def click_user(self):
         self.driver.find_element_by_css_selector('.button.button-metal.config_hook').click()
-        time.sleep(0.3)
-        self.driver.find_element_by_css_selector('.color-submits__button.button.button-metal.white').click()
-        time.sleep(0.3)
+        time.sleep(1)
+        self.driver.find_element_by_css_selector('button.color-submits__button.button-metal.white').click()
+        time.sleep(0.5)
         self.game_property['mode'] = True
         self.game_property['wait'] = True
 

@@ -9,7 +9,7 @@ error_message = "Wystąpił poważny błąd"
 
 params = {
         'next_match': False,
-        'play_with': Runway.GAME_MODE_FAST,
+        'play_with': Runway.GAME_MODE_USER,
         'comp_lvl': 1,
         'comp_white': True,
         'debug': False
