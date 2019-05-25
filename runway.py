@@ -56,8 +56,7 @@ class Runway:
         quick_pair_tab = self.driver.find_element_by_css_selector('.tabs-horiz')
         quick_pair_tab.find_elements_by_css_selector("*")[0].click()
         time.sleep(0.2)
-        button = self.driver.find_element_by_css_selector('.lobby__app__content.lpools')
-        button.find_elements_by_css_selector("*")[1].click()
+        self.driver.find_elements_by_css_selector(".lobby__app__content.lpools div .clock")[1].click()
         time.sleep(0.2)
         self.game_property['mode'] = True
         self.game_property['wait'] = True
