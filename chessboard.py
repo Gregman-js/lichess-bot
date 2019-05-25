@@ -61,6 +61,7 @@ class Chess:
         self.tab_pos['right_bottom']["x"] = int(board_location['x'] + self.board_size['width'])
         self.tab_pos['right_top']["x"] = int(board_location['x'] + self.board_size['width'])
         self.tab_pos['size'] = [self.board_size['width'], self.board_size['height']]
+        self.determine_color()
     def printBoard(self):
         if not self.tab_pos:
             self.brdNtFnd()
@@ -176,11 +177,15 @@ class Chess:
             return czas
         return 0
 
-    def wait_for_move(self):
+    def determine_color(self):
         class_name = self.driver.find_elements_by_css_selector(".cg-wrap")[0].get_attribute('class')
         if 'orientation-black' in class_name:
             self.started_black = True
+        else:
+            self.started_black = False
 
+    def wait_for_move(self):
+        print(self.started_black)
         while True:
             if not self.params['mode']:
                 try:
