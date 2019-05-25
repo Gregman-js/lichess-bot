@@ -1,0 +1,3 @@
+selenium==3.141.0
+stockfish==1.0.4
+PyAutoGUI==0.9.42
