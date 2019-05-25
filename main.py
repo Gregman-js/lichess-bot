@@ -8,8 +8,8 @@ cpri = "Copyright Grzegorz Libiszewski\nMiłego dnia"
 error_message = "Wystąpił poważny błąd"
 
 params = {
-        'next_match': False,
-        'play_with': Runway.GAME_MODE_USER,
+        'next_match': True,
+        'play_with': Runway.GAME_MODE_FAST,
         'comp_lvl': 1,
         'comp_white': True,
         'debug': False
@@ -27,6 +27,7 @@ try:
     while True:
         new = chess.wait_for_move()
         if new:
+            runway.wait_for_go()
             chess.initEngine()
             chess.wait_for_move()
         time.sleep(0.05)
@@ -34,5 +35,7 @@ try:
 
 except (KeyboardInterrupt, EOFError):
     print('\n'+cpri)
+except:
+    print('\nBłąd\n'+cpri)
 # except:
 #     print('\n'+error_message+'\n'+cpri)

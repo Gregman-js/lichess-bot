@@ -9,13 +9,13 @@ class Runway:
     GAME_MODE_USER = 1
     GAME_MODE_COMPUTER = 2
     game_property = {}
-
+    game_url = ''
 
     def __init__(self, params = None):
         self.scrW, self.scrH = pag.size()
         def_params = {
-        'next_match': False,
-        'play_with': self.GAME_MODE_FAST,
+        'next_match': True,
+        'play_with': self.GAME_MODE_COMPUTER,
         'comp_lvl': 8,
         'comp_white': True,
         'debug': False
@@ -47,7 +47,8 @@ class Runway:
 
     def wait_for_go(self):
         while True:
-            if self.driver.current_url.split('/')[3] != '':
+            if self.driver.current_url.split('/')[3] != '' and self.driver.current_url.split('/')[3] != self.game_url:
+                self.game_url = self.driver.current_url.split('/')[3]
                 break
             time.sleep(1)
 
@@ -56,7 +57,7 @@ class Runway:
         quick_pair_tab.find_elements_by_css_selector("*")[0].click()
         time.sleep(0.2)
         button = self.driver.find_element_by_css_selector('.lobby__app__content.lpools')
-        button.find_elements_by_css_selector("*")[2].click()
+        button.find_elements_by_css_selector("*")[1].click()
         time.sleep(0.2)
         self.game_property['mode'] = True
         self.game_property['wait'] = True

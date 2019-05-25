@@ -61,9 +61,6 @@ class Chess:
         self.tab_pos['right_bottom']["x"] = int(board_location['x'] + self.board_size['width'])
         self.tab_pos['right_top']["x"] = int(board_location['x'] + self.board_size['width'])
         self.tab_pos['size'] = [self.board_size['width'], self.board_size['height']]
-        class_name = self.driver.find_elements_by_css_selector(".cg-wrap")[0].get_attribute('class')
-        if 'orientation-black' in class_name:
-            self.started_black = True
     def printBoard(self):
         if not self.tab_pos:
             self.brdNtFnd()
@@ -180,6 +177,10 @@ class Chess:
         return 0
 
     def wait_for_move(self):
+        class_name = self.driver.find_elements_by_css_selector(".cg-wrap")[0].get_attribute('class')
+        if 'orientation-black' in class_name:
+            self.started_black = True
+
         while True:
             if not self.params['mode']:
                 try:
@@ -206,15 +207,10 @@ class Chess:
                 if lengs > 0:
                     self.is_moved = False
                     break
-            rematch_elem = self.driver.find_elements_by_css_selector('.follow-up')
-            if len(rematch_elem) > 0 and self.params['next_match']:
-                if len(rematch_elem[0].find_elements_by_css_selector("*")) > 1:
-                    rematch_elem[0].find_elements_by_css_selector("*")[1].click()
-                    return self.params['next_match']
+            button_to_new_opponent = self.driver.find_elements_by_css_selector('.follow-up a.fbt')
+            if len(button_to_new_opponent) > 0 and self.params['next_match']:
+                time.sleep(0.3)
+                button_to_new_opponent[0].click()
+                return self.params['next_match']
             time.sleep(0.5)
         return False
-# <div class="follow-up">
-#     <button class="fbt rematch white" title=""><span>Rematch</span></button>
-#     <a class="fbt" href="/#pool/1+0/octopostopy">New opponent</a>
-#     <a class="fbt" href="/1d1mS9Zk/white#27">Analysis board</a>
-# </div>
