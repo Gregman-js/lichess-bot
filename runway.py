@@ -18,7 +18,8 @@ class Runway:
         'play_with': self.GAME_MODE_COMPUTER,
         'comp_lvl': 8,
         'comp_white': True,
-        'debug': False
+        'debug': False,
+        'fast_lvl': 0
         }
         if params is None:
             params = {}
@@ -56,7 +57,7 @@ class Runway:
         quick_pair_tab = self.driver.find_element_by_css_selector('.tabs-horiz')
         quick_pair_tab.find_elements_by_css_selector("*")[0].click()
         time.sleep(0.2)
-        self.driver.find_elements_by_css_selector(".lobby__app__content.lpools div .clock")[1].click()
+        self.driver.find_elements_by_css_selector(".lobby__app__content.lpools div .clock")[self.params['fast_lvl'] if self.params['fast_lvl'] >= 0 and self.params['fast_lvl'] < 8 else 0].click()
         time.sleep(0.2)
         self.game_property['mode'] = True
         self.game_property['wait'] = True

@@ -12,7 +12,8 @@ params = {
         'play_with': Runway.GAME_MODE_FAST,
         'comp_lvl': 8,
         'comp_white': True,
-        'debug': False
+        'debug': False,
+        'fast_lvl': 0
         }
 try:
     runway = Runway(params)

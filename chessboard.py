@@ -99,18 +99,21 @@ class Chess:
         return str(x)+str(y)
 
     def are_you_to_fast(self, timing, wait_for_move):
+        tim_table = timing
+        timing = tim_table[0]
         if self.expir_fast:
             time.sleep(1)
             self.expir_fast = False
         elif wait_for_move:
             if timing > 40 and timing < 60:
-                time.sleep(randint(0, 1)/2)
+                if tim_table[1] < timing:
+                    time.sleep(randint(0, 1)/2)
             # elif timing <= 40 and timing > 30:
             #     time.sleep(randint(0, 1)/2)
             elif timing >= 100:
-                time.sleep(3+randint(2, 8))
+                time.sleep(randint(2, 8))
             elif timing >= 60 and timing < 100:
-                time.sleep(2+randint(1, 4))
+                time.sleep(randint(1, 4))
 
     def get_moves(self):
         last_moves = self.driver.find_elements_by_class_name("last-move")
@@ -171,11 +174,14 @@ class Chess:
 
     def get_time(self):
         if self.params['mode']:
-            timer = self.driver.find_elements_by_css_selector('.time')[1]
-            timing = timer.text.replace("\n", "").split('.')[0].split(":")
+            timer = self.driver.find_elements_by_css_selector('.time')
+            timing = timer[1].text.replace("\n", "").split('.')[0].split(":")
             czas = int(timing[0])*60 + int(timing[1])
-            return czas
-        return 0
+            en_t = timer[0].text.replace("\n", "").split('.')[0].split(":")
+            en_czas = int(en_t[0])*60 + int(en_t[1])
+            outp = [czas, en_czas]
+            return outp
+        return [0, 0]
 
     def determine_color(self):
         class_name = self.driver.find_elements_by_css_selector(".cg-wrap")[0].get_attribute('class')
